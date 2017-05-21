@@ -171,9 +171,8 @@ class NavigationTile(Tile):
             node["url"]="%s/view" % brain.getURL() if brain.portal_type in use_view_types else brain.getURL()
             node["review_state"]=normalize(brain.review_state)
             node["folderish"]=brain.is_folderish
-            node["class"]=" ".join(filter(None,
-                                    ["active" if node["current"] or node["currentParent"] else None,
-                                     "current" if node["current"] else None])) or None
+            node["class"]=" ".join([_f for _f in ["active" if node["current"] or node["currentParent"] else None,
+                                     "current" if node["current"] else None] if _f]) or None
 
         if "brain" in tree.root:
             self.tree=[tree.root]

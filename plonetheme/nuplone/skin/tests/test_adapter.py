@@ -78,13 +78,13 @@ class TestHTMLStatusMessages(ptc.PloneTestCase):
         self.assertEquals(len(status.show()), 0)
 
         # Add one message
-        status.add(u'test', type=u'info')
+        status.add('test', type='info')
 
         # Now check the results
         messages = status.show()
         self.assertEquals(len(messages), 1)
-        self.assertEquals(messages[0].message, u'test')
-        self.assertEquals(messages[0].type, u'info')
+        self.assertEquals(messages[0].message, 'test')
+        self.assertEquals(messages[0].type, 'info')
 
         # Make sure messages are removed
         self.assertEquals(len(status.show()), 0)
@@ -97,96 +97,96 @@ class TestHTMLStatusMessages(ptc.PloneTestCase):
         # retrieving the messages
 
         # Add one message
-        status.add(u'test', type=u'info')
+        status.add('test', type='info')
 
         # Now check the results
         messages = status.show()
         self.assertEqual(len(messages), 1)
-        self.assertEquals(messages[0].message, u'test')
-        self.assertEquals(messages[0].type, u'info')
+        self.assertEquals(messages[0].message, 'test')
+        self.assertEquals(messages[0].type, 'info')
 
         # Make sure messages are removed
         self.assertEquals(len(status.show()), 0)
 
         # Add two messages
-        status.add(u'test', type=u'info')
-        status.add(u'test1', u'warn')
+        status.add('test', type='info')
+        status.add('test1', 'warn')
         
         # And check the results again
         messages = status.show()
         self.assertEquals(len(messages), 2)
         test = messages[1]
-        self.assertEquals(test.message, u'test1')
-        self.assertEquals(test.type, u'warn')
+        self.assertEquals(test.message, 'test1')
+        self.assertEquals(test.type, 'warn')
 
         # Make sure messages are removed again
         self.assertEquals(len(status.show()), 0)
 
         # Add two identical messages
-        status.add(u'test', type=u'info')
-        status.add(u'test', type=u'info')
+        status.add('test', type='info')
+        status.add('test', type='info')
 
         # And check the results again
         messages = status.show()
         self.assertEquals(len(messages), 1)
         test = messages[0]
-        self.assertEquals(test.message, u'test')
-        self.assertEquals(test.type, u'info')
+        self.assertEquals(test.message, 'test')
+        self.assertEquals(test.type, 'info')
 
         # Make sure messages are removed again
         self.assertEquals(len(status.show()), 0)
 
         # Test incredibly long messages:
-        status.add(u'm' * 0x400, type=u't' * 0x20)
+        status.add('m' * 0x400, type='t' * 0x20)
 
         # And check the results again
         messages = status.show()
         self.assertEquals(len(messages), 1)
 
         test = messages[0]
-        assert(test.message == u'm' * 0x3FF)
-        assert(test.type == u't' * 0x1F)
+        assert(test.message == 'm' * 0x3FF)
+        assert(test.type == 't' * 0x1F)
 
         # Add one HTML messages
-        status.addHTML(u'test', type=u'success')
+        status.addHTML('test', type='success')
         
         # And check the results again
         messages = status.show()
         self.assertEquals(len(messages), 1)
         test = messages[0]
-        self.assertEquals(test.type, u'success')
-        self.assertEquals(test.message, u'test')
+        self.assertEquals(test.type, 'success')
+        self.assertEquals(test.message, 'test')
         self.assertEquals(type(test.message), literal)
 
         # Add two HTML messages
-        status.addHTML(u'test', type=u'info')
-        status.addHTML(u'test1', u'warn')
+        status.addHTML('test', type='info')
+        status.addHTML('test1', 'warn')
         
         # And check the results again
         messages = status.show()
         self.assertEquals(len(messages), 2)
         test = messages[1]
-        self.assertEquals(test.message, u'test1')
+        self.assertEquals(test.message, 'test1')
         self.assertEquals(type(test.message), literal)
-        self.assertEquals(test.type, u'warn')
+        self.assertEquals(test.type, 'warn')
 
         # add two identical messages
-        status.addHTML(u'test', type=u'info')
-        status.addHTML(u'test', type=u'info')
+        status.addHTML('test', type='info')
+        status.addHTML('test', type='info')
 
         # And check the results again
         messages = status.show()
         self.assertEquals(len(messages), 1)
         test = messages[0]
-        self.assertEquals(test.message, u'test')
+        self.assertEquals(test.message, 'test')
         self.assertEquals(type(test.message), literal)
-        self.assertEquals(test.type, u'info')
+        self.assertEquals(test.type, 'info')
 
         # Make sure messages are removed again
         self.assertEquals(len(status.show()), 0)
 
         # Test incredibly long messages:
-        status.addHTML(u'm' * 0x400, type=u't' * 0x20)
+        status.addHTML('m' * 0x400, type='t' * 0x20)
 
         # And check the results again
         messages = status.show()
@@ -194,61 +194,61 @@ class TestHTMLStatusMessages(ptc.PloneTestCase):
 
         test = messages[0]
         self.assertEquals(type(test.message), literal)
-        assert(test.message == '%s' % (u'm' * 0x3FF))
-        assert(test.type == u't' * 0x1F)
+        assert(test.message == '%s' % ('m' * 0x3FF))
+        assert(test.type == 't' * 0x1F)
 
 
         # Add two mixed messages
-        status.add(u'test', type=u'info')
-        status.addHTML(u'test1', u'warn')
+        status.add('test', type='info')
+        status.addHTML('test1', 'warn')
         
         # And check the results again
         messages = status.show()
         self.assertEquals(len(messages), 2)
         test = messages[0]
-        self.assertEquals(test.message, u'test')
+        self.assertEquals(test.message, 'test')
         self.assertNotEquals(type(test.message), literal)
-        self.assertEquals(test.type, u'info')
+        self.assertEquals(test.type, 'info')
 
         test = messages[1]
-        self.assertEquals(test.message, u'test1')
+        self.assertEquals(test.message, 'test1')
         self.assertEquals(type(test.message), literal)
-        self.assertEquals(test.type, u'warn')
+        self.assertEquals(test.type, 'warn')
 
         # Add a more complicated html message
-        status.addHTML(u'You can go <a href="http://plone.org">here</a>.', type=u'success')
+        status.addHTML('You can go <a href="http://plone.org">here</a>.', type='success')
         messages = status.show()
         self.assertEquals(len(messages), 1)
         test = messages[0]
-        self.assertEquals(test.type, u'success')
+        self.assertEquals(test.type, 'success')
         self.assertEquals(
             test.message, 
-            u'You can go <a href="http://plone.org" rel="nofollow" target="_blank">here</a>.')
+            'You can go <a href="http://plone.org" rel="nofollow" target="_blank">here</a>.')
         self.assertEquals(type(test.message), literal)
 
         # Add html message with disallowed tags
-        status.addHTML(u'<p>You can go <a href="http://plone.org">here</a>.</p>', type=u'success')
+        status.addHTML('<p>You can go <a href="http://plone.org">here</a>.</p>', type='success')
         messages = status.show()
         self.assertEquals(len(messages), 1)
         test = messages[0]
-        self.assertEquals(test.type, u'success')
+        self.assertEquals(test.type, 'success')
         self.assertEquals(
             test.message, 
-            u'You can go <a href="http://plone.org" rel="nofollow" target="_blank">here</a>.')
+            'You can go <a href="http://plone.org" rel="nofollow" target="_blank">here</a>.')
         self.assertEquals(type(test.message), literal)
 
-        status.addHTML(u"<script type=\"javascript\">alert('hello')</script>", type=u'success')
+        status.addHTML("<script type=\"javascript\">alert('hello')</script>", type='success')
         messages = status.show()
         self.assertEquals(len(messages), 1)
         test = messages[0]
-        self.assertEquals(test.type, u'success')
+        self.assertEquals(test.type, 'success')
         self.assertEquals(test.message, '')
         self.assertEquals(type(test.message), literal)
 
-        status.addHTML(u'<a href="data:text/html;base64,PHNjcmlwdD5hbGVydCgidGVzdCIpOzwvc2NyaXB0Pg==">click me</a>', type=u'success')
+        status.addHTML('<a href="data:text/html;base64,PHNjcmlwdD5hbGVydCgidGVzdCIpOzwvc2NyaXB0Pg==">click me</a>', type='success')
         messages = status.show()
         self.assertEquals(len(messages), 1)
         test = messages[0]
-        self.assertEquals(test.type, u'success')
+        self.assertEquals(test.type, 'success')
         self.assertEquals( test.message, '<a href="">click me</a>')
         self.assertEquals(type(test.message), literal)

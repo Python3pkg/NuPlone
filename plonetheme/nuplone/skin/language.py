@@ -16,10 +16,10 @@ class SwitchLanguage(grok.View):
         flash = IStatusMessage(self.request).addStatusMessage
         if setLanguage(self.request, self.context):
             flash(_('message_switch_language',
-                default=u'Language updated'), 'success')
+                default='Language updated'), 'success')
         else:
             flash(_('message_switch_language_error',
-                default=u'Failed to switch language'), 'error')
+                default='Failed to switch language'), 'error')
 
         next_url = self.request.get('came_from')
         if not next_url:

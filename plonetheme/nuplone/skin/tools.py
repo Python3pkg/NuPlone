@@ -48,7 +48,7 @@ class Tools(grok.View):
         if title:
             return title
         else:
-            return _("default_site_title", default=u"Plone")
+            return _("default_site_title", default="Plone")
 
     def formatDate(self, date, length="long"):
         return utils.formatDate(self.request, date, length)

@@ -49,7 +49,7 @@ class FormSchemaGrokker(martian.InstanceGrokker):
         # Copy from temporary to real value
         directiveSupplied = interface.queryTaggedValue(TEMP_KEY, None)
         if directiveSupplied is not None:
-            for key, tgv in directiveSupplied.items():
+            for key, tgv in list(directiveSupplied.items()):
                 existingValue = interface.queryTaggedValue(key, None)
 
                 if existingValue is not None:
@@ -105,7 +105,7 @@ class FormDependencyExtender(grok.MultiAdapter):
             group=todo.pop()
             if hasattr(group, "groups"):
                 todo.extendleft(group.groups)
-            for (name, field) in group.fields.items():
+            for (name, field) in list(group.fields.items()):
                 depends=dependencies.get(name, None)
                 if depends is None:
                     continue

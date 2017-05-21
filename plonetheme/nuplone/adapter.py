@@ -37,7 +37,7 @@ class StatusMessage(adapter.StatusMessage):
         This allows us to send html as statusmessages, without it being escaped
         by Chameleon.
     """ 
-    def addHTML(self, text, type=u'info'):
+    def addHTML(self, text, type='info'):
         """ Add a HTML status message.
         """
         context = self.context

@@ -15,7 +15,7 @@ from Products.statusmessages.interfaces import IStatusMessage
 
 class ISettings(form.Schema):
     fullname = schema.TextLine(
-            title=_("label_fullname", default=u"Full name"),
+            title=_("label_fullname", default="Full name"),
             required=True)
 
     email = schema.ASCIILine(
@@ -23,7 +23,7 @@ class ISettings(form.Schema):
             required=True)
 
     password = schema.Password(
-            title = _("label_password", default=u"Password"),
+            title = _("label_password", default="Password"),
             required = True)
 
 

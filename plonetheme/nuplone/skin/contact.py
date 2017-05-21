@@ -24,7 +24,7 @@ TextLines4Rows = FieldWidgetFactory("z3c.form.browser.textlines.TextLinesFieldWi
 
 class IContact(form.Schema):
     name = schema.TextLine(
-            title=_(u"label_your_name", default="Your name"),
+            title=_("label_your_name", default="Your name"),
             required=True)
     form.widget(name="plonetheme.nuplone.skin.contact.TextSpan7")
 
@@ -34,7 +34,7 @@ class IContact(form.Schema):
     form.widget(email="plonetheme.nuplone.skin.contact.TextSpan7")
 
     subject = schema.TextLine(
-            title=_(u"label_subject", default=u"Subject"),
+            title=_("label_subject", default="Subject"),
             required=True)
     form.widget(subject="plonetheme.nuplone.skin.contact.TextSpan7")
 
@@ -52,7 +52,7 @@ class ContactForm(form.SchemaForm):
 
     ignoreContext = True
     schema = IContact
-    label = _(u"header_contact", default="Contact")
+    label = _("header_contact", default="Contact")
     default_fieldset_label = None
 
     @buttonAndHandler(_("button_send", default="Send"), name="send")
@@ -65,7 +65,7 @@ class ContactForm(form.SchemaForm):
         appconfig = queryUtility(IAppConfig) or {}
         siteconfig = appconfig.get("site", {})
 
-        subject=_(u"contact_mail_subject", default=u"Contact request: ${subject}", mapping=data)
+        subject=_("contact_mail_subject", default="Contact request: ${subject}", mapping=data)
         subject=translate(subject, context=self.request)
 
         email=createEmailTo(data["name"], data["email"],
@@ -77,15 +77,15 @@ class ContactForm(form.SchemaForm):
         flash=IStatusMessage(self.request).addStatusMessage
         try:
             mh.send(email)
-        except MailHostError, e:
+        except MailHostError as e:
             log.error("MailHost error sending contact form for %s: %s", data["email"], e)
-            flash(_(u"error_contactmail", u"An error occured while processing your contact request. Please try again later."), "error")
+            flash(_("error_contactmail", "An error occured while processing your contact request. Please try again later."), "error")
             return
-        except socket.error, e:
+        except socket.error as e:
             log.error("Socket error sending contact form for %s: %s", data["email"], e[1])
-            flash(_(u"error_contactmail", u"An error occured while processing your contact request. Please try again later."), "error")
+            flash(_("error_contactmail", "An error occured while processing your contact request. Please try again later."), "error")
             return
 
-        flash(_(u"Message sent"), "success")
+        flash(_("Message sent"), "success")
         self.request.response.redirect(aq_inner(self.context).absolute_url())
 

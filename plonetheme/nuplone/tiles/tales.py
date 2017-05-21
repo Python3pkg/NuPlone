@@ -16,7 +16,7 @@ class TileProviderTraverser(object):
         tile = getTile(context, request, name)
         if tile is None:  # XXX Use custom exception?
             log.warn('Request for unknown tile %s', name)
-            return u''
+            return ''
         return SimpleLiteral(tile())
 
 

@@ -4,11 +4,11 @@ from zope.dottedname.resolve import resolve
 # http://code.google.com/p/dexterity/issues/detail?id=123
 
 def FieldWidgetFactory(factory, **kw):
-    if isinstance(factory, basestring):
+    if isinstance(factory, str):
         factory=resolve(factory)
     def wrapper(field, request):
         widget=factory(field, request)
-        for (key,value) in kw.items():
+        for (key,value) in list(kw.items()):
             setattr(widget, key, value)
         return widget
     return wrapper

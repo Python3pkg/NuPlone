@@ -75,9 +75,9 @@ def viewType(context, request):
 
 
 
-class SimpleLiteral(unicode):
+class SimpleLiteral(str):
     def __html__(self):
-        return unicode(self)
+        return str(self)
 
 
 
@@ -145,7 +145,7 @@ def createEmailTo(sender_name, sender_email, recipient_name, recipient_email,
     method will take care of adding addings a date header and message ID
     to the email, as well as quoting of non-ASCII content.
     """
-    if isinstance(body, unicode):
+    if isinstance(body, str):
         mail=MIMEText(body.encode("utf-8"), format, "utf-8")
     else:
         mail=MIMEText(body, format)
@@ -186,7 +186,7 @@ def formatDate(request, date, length="long"):
     pre-1900 dates.
     """
     if date.year<1900:
-        return _("date_to_early", default=u"<pre-1900-date>")
+        return _("date_to_early", default="<pre-1900-date>")
     return request.locale.dates.getFormatter("date", length).format(date)
 
 
@@ -199,7 +199,7 @@ def formatDatetime(request, timestamp, length="long"):
     pre-1900 dates.
     """
     if timestamp.year<1900:
-        return _("date_to_early", default=u"<pre-1900-date>")
+        return _("date_to_early", default="<pre-1900-date>")
     if length=="long":
         return _("format_datetime", default="${date} at ${time}",
                 mapping=dict(date=formatDate(request, timestamp, "long"),

@@ -50,7 +50,7 @@ class Login(grok.View):
 
         if not self.anonymous and "login_attempt" in self.request:
             flash=IStatusMessage(self.request).addStatusMessage
-            flash(_(u"message_logged_in", default=u"You have been logged in."), "success")
+            flash(_("message_logged_in", default="You have been logged in."), "success")
             mt=getToolByName(self.context, "portal_membership")
             mt.loginUser(self.request)
             next=self.came_from or self.homeUrl(user)
@@ -70,8 +70,8 @@ class Logout(grok.View):
         if not isAnonymous():
             mt=getToolByName(self.context, "portal_membership")
             mt.logoutUser(self.request)
-            flash(_(u"message_logged_out", default=u"You have been logged out."), "success")
+            flash(_("message_logged_out", default="You have been logged out."), "success")
         else:
-            flash(_(u"message_already_logged_out", default=u"You were already logged out."), "notice")
+            flash(_("message_already_logged_out", default="You were already logged out."), "notice")
         return self.request.response.redirect(aq_inner(self.context).absolute_url())
 

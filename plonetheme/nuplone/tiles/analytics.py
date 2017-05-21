@@ -8,7 +8,7 @@ _GA_COOKIE = '_nuplone_ga'
 
 def _ga_queue(request):
     cookie = request.cookies.get(_GA_COOKIE, '')
-    return filter(None, cookie.split(','))
+    return [_f for _f in cookie.split(',') if _f]
 
 
 def trigger_extra_pageview(request, url):
